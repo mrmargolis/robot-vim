@@ -3,6 +3,9 @@ RobotVim is a Ruby gem that allows you to invoke Vim from inside of Ruby
 programs.  It was designed to allow Vim developers to TDD/BDD their Vim plugins
 and scripts.
 
+## Important
+Right now there is no real code to this project.  It's just this README.  Code is coming soon.
+
 ## Installation
 To install RobotVim run
     gem install robot-vim
@@ -10,7 +13,7 @@ or clone this reposity and run
     rake install
 
 ## Dependencies
-RobotVim is developed with Ruby 1.9.2 and bundler
+RobotVim is developed with Ruby 1.9.2 and bundler.  It has not been tested with older versions of Ruby.
 
 ## Example Usage
 
@@ -42,16 +45,16 @@ Run commands against inline input
     puts result.buffer_text
 
 Run a command against a test input file
-    command = "normal G|iTyping some text at the bottom of the file"
+    command = "normal G|iTyping some text at the bottom of the buffer"
     result = robot.run(:input_file => "examples/input1.txt", :commands => commands)
     puts result.buffer_text
 
 ## The result object
 The result of the RobotVim#run method has the following attributes
 
--  buffer\_text:  the text of the buffer after the last command
+-  buffer\_text:  the text of the buffer after the last command (not yet implemented)
 -  buffer\_name:  the name of the buffer after the last command (not yet implemented)
 -  cursor\_location:  the curson location after the last command(not yet implemented)
 
 ## Author
-RobotVim was developed by Matt Margolis | mrmargolis | matt@mattmargolis.net
+RobotVim is developed by Matt Margolis | mrmargolis | matt@mattmargolis.net
