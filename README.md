@@ -45,7 +45,7 @@ Run commands against inline input
     puts result.buffer_text
 
 Run a command against a test input file
-    command = "normal G|iTyping some text at the bottom of the buffer"
+    commands = "normal G|iTyping some text at the bottom of the buffer"
     result = robot.run(:input_file => "examples/input1.txt", :commands => commands)
     puts result.buffer_text
 
