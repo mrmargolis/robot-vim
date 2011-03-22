@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RobotVim::Runner do
 
-  describe "choosing which vim to use" do
+  describe "specifying which vim to use" do
     it "uses the vim passed in during initialization if provided" do
       vim = "/usr/local/bin/vim"
       robot = RobotVim::Runner.new(:vim => vim)  
@@ -16,7 +16,7 @@ describe RobotVim::Runner do
     end
   end
 
-  describe "indicating which vimrc to use" do
+  describe "specifying which vimrc to use" do
     it "uses the vimrc passed in during initialization if provided" do
       vimrc = "/some/path/vimrc"
       robot = RobotVim::Runner.new(:vimrc => vimrc)  
