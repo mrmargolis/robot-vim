@@ -19,11 +19,11 @@ RobotVim is developed with Vim 7.3, Ruby 1.9.2, and bundler.
 
 ### Initialization
 Create an instance that will use your user's default Vim and vimrc file
-    robot = RobotVim.new()
+    robot = RobotVim::Runner.new()
 
 Or create an instance with a specific Vim and/or vimrc file
-    robot = RobotVim.new(:vim => "~/bin/vim",
-                         :vimrc => "examples/vimrc_with_weird_bindings")
+    robot = RobotVim::Runner.new(:vim => "~/bin/vim",
+                                 :vimrc => "examples/vimrc_with_weird_bindings")
 
 ### Running commands
 Commands are passed in as a string with one command per line.

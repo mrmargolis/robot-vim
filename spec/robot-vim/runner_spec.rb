@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-describe RobotVim do
+describe RobotVim::Runner do
 
   describe "choosing which vim to use" do
     it "uses the vim passed in during initialization if provided" do
       vim = "/usr/local/bin/vim"
-      robot = RobotVim.new(:vim => vim)  
+      robot = RobotVim::Runner.new(:vim => vim)  
       robot.vim_binary.should == vim
     end
 
     it "defaults to vim in user's path" do
       vim = "vim"
-      robot = RobotVim.new()  
+      robot = RobotVim::Runner.new()  
       robot.vim_binary.should == vim
     end
   end
@@ -19,13 +19,13 @@ describe RobotVim do
   describe "indicating which vimrc to use" do
     it "uses the vimrc passed in during initialization if provided" do
       vimrc = "/some/path/vimrc"
-      robot = RobotVim.new(:vimrc => vimrc)  
+      robot = RobotVim::Runner.new(:vimrc => vimrc)  
       robot.vimrc.should == vimrc
     end
 
     it "defaults to vim in user's path" do
       vimrc = "~/.vimrc"
-      robot = RobotVim.new()  
+      robot = RobotVim::Runner.new()  
       robot.vimrc.should == vimrc
     end
   end
@@ -33,7 +33,7 @@ describe RobotVim do
   describe "running commands in vim" do
     let(:vim_path){"/usr/local/bin/vim"}
     let(:vimrc_path){"/testing/vimrc"}
-    let(:robot){RobotVim.new(:vim => vim_path, :vimrc => vimrc_path)}
+    let(:robot){RobotVim::Runner.new(:vim => vim_path, :vimrc => vimrc_path)}
 
     context "Running commands against an existing file" do
       let(:commands){"some vim commands"}
