@@ -35,7 +35,7 @@ describe RobotVim::Runner do
     let(:vimrc_path){"/testing/vimrc"}
     let(:robot){RobotVim::Runner.new(:vim => vim_path, :vimrc => vimrc_path)}
 
-    context "Running commands against an existing file" do
+    context "Running commands" do
       let(:commands){"some vim commands"}
       let(:input_file){"some/path/to/a/file"}
 
@@ -48,7 +48,7 @@ describe RobotVim::Runner do
         run_robot
       end
 
-      it "invokes the correct vimrc" do
+      it "uses the correct vimrc" do
         Kernel.should_receive(:`).with(/-u #{vimrc_path}/)
         run_robot
       end
@@ -58,15 +58,16 @@ describe RobotVim::Runner do
         run_robot
       end
 
+      it "runs vim without swap files so vim doesn't show warnings" do
+        Kernel.should_receive(:`).with(/-n/)
+        run_robot
+      end
+
       it "invokes vim with a script file" do
         pending "Implement script file generation"
         Kernel.should_receive(:`).with(/-s some script file/)
         run_robot
       end
-
-    end
-
-    context "Running commands against an inline input string" do
 
     end
 

@@ -17,7 +17,7 @@ module RobotVim
     end
 
     def run(args={})
-      Kernel.send(:`, "#{self.vim_binary} -u #{self.vimrc} #{args[:input_file]}")
+      Kernel.send(:`, "#{self.vim_binary} -n -u #{self.vimrc} #{args[:input_file]}")
     end
   end
 end
