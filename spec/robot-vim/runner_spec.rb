@@ -64,8 +64,9 @@ describe RobotVim::Runner do
       end
 
       it "invokes vim with a script file" do
-        pending "Implement script file generation"
-        Kernel.should_receive(:`).with(/-s some script file/)
+        script_file_path = "path/to/script/file"
+        RobotVim::ScriptFile.stub(:open).and_yield(script_file_path)
+        Kernel.should_receive(:`).with(/-s #{script_file_path}/)
         run_robot
       end
 
