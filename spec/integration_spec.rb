@@ -18,5 +18,6 @@ describe "Automating Vim with RobotVim" do
     runner.run(:commands => commands, :input_file => input_path)
     result = File.read(output_file)
     result.should eql(unsorted_text.split("\n").sort.join("\n") + "\n")
+    File.delete(output_file)
   end
 end
