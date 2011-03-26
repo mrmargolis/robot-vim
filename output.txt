@@ -1,0 +1,3 @@
+A first line
+Middle line
+This line should be last
