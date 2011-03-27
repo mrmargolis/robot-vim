@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec", "~> 2.5.0"
   s.add_development_dependency "autotest"
 
+  s.add_dependency "uuid", "~> 2.3.1"
+
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
   s.require_path = 'lib'

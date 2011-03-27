@@ -19,8 +19,14 @@ describe RobotVim::Runner do
   describe "running commands in vim" do
     let(:vim_path){"/usr/local/bin/vim"}
     let(:runner){RobotVim::Runner.new(:vim => vim_path)}
-    let(:commands){"some vim commands"}
+    let(:commands){"some vim commands\n"}
     let(:input_file){"some/path/to/a/file"}
+    let(:output_file_name){"output_file_name"}
+
+    before do
+      Kernel.stub(:`)
+      File.stub(:read)
+    end
 
     def run_robot
       runner.run(:commands => commands, :input_file => input_file)
@@ -46,6 +52,41 @@ describe RobotVim::Runner do
       RobotVim::ScriptFile.stub(:open).and_yield(script_file_path)
       Kernel.should_receive(:`).with(/-s #{script_file_path}/)
       run_robot
+    end
+
+    it "adds a write command to the user supplied commands" do
+      RobotVim::ScriptFile.should_receive(:open).with(/\n\:w/)
+      run_robot
+    end
+
+    it "generates a unique filename for the output file on each run" do
+      files = []
+      RobotVim::ScriptFile.should_receive(:open) do |msg|
+        files <<  msg.match(/:w (.*)/)[1]
+      end.twice
+      run_robot
+      run_robot
+      files[0].should_not == files[1]
+    end
+
+    it "adds vim closing commands to the user supplied commands" do
+      RobotVim::ScriptFile.should_receive(:open).with(/:%bd!\n:q!/)
+      run_robot
+    end
+    
+    it "returns the contents of the output file" do
+      UUID.stub_chain(:new, :generate => output_file_name)
+      expected_result = "awesome buffer"
+      File.stub(:read).with(output_file_name).and_return(expected_result)
+      result = run_robot
+      result.should == expected_result
+    end
+
+    it "deletes the output file" do
+      output_file_name = "somefile" 
+      UUID.stub_chain(:new, :generate => output_file_name)
+      run_robot
+      File.exists?(output_file_name).should be_false
     end
   end
 

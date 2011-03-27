@@ -2,11 +2,14 @@ module RobotVim
   class ScriptFile
 
     def self.open(commands)
-      Tempfile.open('script_file') do |temp_file|
-        temp_file << commands
-        temp_file.flush
-        yield temp_file.path
-      end
+      file_name = UUID.new.generate(:compact)
+      script_file = File.new(file_name, "w")
+      script_file << commands
+      script_file.flush
+      script_file.close
+      yield file_name
+    ensure
+      File.delete(file_name) if File.exists?(file_name)
     end
 
   end
