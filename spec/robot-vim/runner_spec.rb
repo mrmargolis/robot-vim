@@ -21,7 +21,6 @@ describe RobotVim::Runner do
     let(:runner){RobotVim::Runner.new(:vim => vim_path)}
     let(:commands){"some vim commands\n"}
     let(:input_file){"some/path/to/a/file"}
-    let(:output_file_name){"output_file_name"}
 
     before do
       Kernel.stub(:`)
@@ -73,20 +72,25 @@ describe RobotVim::Runner do
       RobotVim::ScriptFile.should_receive(:open).with(/:%bd!\n:q!/)
       run_robot
     end
-    
-    it "returns the contents of the output file" do
-      UUID.stub_chain(:new, :generate => output_file_name)
-      expected_result = "awesome buffer"
-      File.stub(:read).with(output_file_name).and_return(expected_result)
-      result = run_robot
-      result.should == expected_result
-    end
 
-    it "deletes the output file" do
-      output_file_name = "somefile" 
-      UUID.stub_chain(:new, :generate => output_file_name)
-      run_robot
-      File.exists?(output_file_name).should be_false
+    describe "output file management" do
+      let(:output_file_name){"output_file_name"}
+
+      before do
+        RobotVim::FileNameGenerator.stub(:generate).and_return(output_file_name)
+      end
+
+      it "returns the contents of the output file" do
+        expected_result = "awesome buffer"
+        File.stub(:read).with(output_file_name).and_return(expected_result)
+        result = run_robot
+        result.should == expected_result
+      end
+
+      it "deletes the output file" do
+        run_robot
+        File.exists?(output_file_name).should be_false
+      end
     end
   end
 

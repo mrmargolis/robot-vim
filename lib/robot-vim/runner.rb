@@ -11,7 +11,7 @@ module RobotVim
     end
 
     def run(args={})
-      output_file_name = UUID.new.generate(:compact)
+      output_file_name = FileNameGenerator.generate
       commands = args[:commands] + ":w #{output_file_name}"
       commands = commands + "\n:%bd!\n:q!\n"
       invoke_vim(commands, args[:input_file])

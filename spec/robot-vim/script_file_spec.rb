@@ -3,15 +3,18 @@ require 'spec_helper'
 describe RobotVim::ScriptFile do
   describe "when creating a script file from a string" do
     let(:commands_string){"some string of vim commands"}
+    let(:expected_file_name){"some_file_name"}
+
+    before do
+      RobotVim::FileNameGenerator.stub(:generate).and_return(expected_file_name)
+    end
 
     it "yields the path of the script file" do
-      expected_path = "/some/path/somewhere"
-      UUID.stub_chain(:new, :generate => expected_path)
       file = stub("file").as_null_object
       File.stub(:new).and_return(file)
 
       RobotVim::ScriptFile.open(commands_string) do |file_path|
-        file_path.should == expected_path
+        file_path.should == expected_file_name
       end
     end
 
@@ -22,11 +25,9 @@ describe RobotVim::ScriptFile do
     end
 
     it "deletes the file after we are done using it" do
-      file_name = "somefile" 
-      UUID.stub_chain(:new, :generate => file_name)
       RobotVim::ScriptFile.open(commands_string) do |file_path|
       end
-      File.exists?(file_name).should be_false
+      File.exists?(expected_file_name).should be_false
     end
 
   end

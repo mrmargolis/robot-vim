@@ -2,7 +2,7 @@ module RobotVim
   class ScriptFile
 
     def self.open(commands)
-      file_name = UUID.new.generate(:compact)
+      file_name = FileNameGenerator.generate
       script_file = File.new(file_name, "w")
       script_file << commands
       script_file.flush
