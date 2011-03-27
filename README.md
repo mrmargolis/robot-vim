@@ -31,19 +31,17 @@ Commands are passed in as a string with one command per line.
       SomeOtherCoolCommand
     COMMANDS
 
-    robot.run(:input_file => "some/file.txt", :commands => commands)
+    buffer_text = robot.run(:input_file => "some/file.txt", :commands => commands)
 
-See spec/integration\_spec.rb for an example of sorting a file and saving the output.
 
 ### Making Assertions
-For now the recommended approach is to include a
-    :w somefile
-in your command list and then read "somefile" using File.read(somefile).  You can then make assertions using whichever testing lib you prefer.  In the future I plan to automate this process and have the run method return the buffer text and other useful data you might want to assert against.
+Use your preferred Ruby testing library to make assertions about the buffer text string returned by RobotVim::Runner#run
 
+See spec/integration\_spec.rb for an example of sorting a file and making an assertion.
 
 ## TODO
-- automatically save buffer to an output file after running the last command
-- automatically close Vim after running the last command
+- automatically save buffer to an output file after running the last command(done)
+- automatically close Vim after running the last command(done)
 - take a string for input and write out a temporary file that Vim will run against
 - figure out if there is a way to specify a .vimrc file without disabling the normal Vim initialization process
 
