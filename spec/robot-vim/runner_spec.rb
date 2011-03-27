@@ -24,7 +24,8 @@ describe RobotVim::Runner do
 
     before do
       Kernel.stub(:`)
-      File.stub(:read)
+      runner.stub(:read_output_file_contents)
+      RobotVim::InputFile.stub(:path_for).and_yield(input_file)
     end
 
     def run_robot
@@ -82,7 +83,7 @@ describe RobotVim::Runner do
 
       it "returns the contents of the output file" do
         expected_result = "awesome buffer"
-        File.stub(:read).with(output_file_name).and_return(expected_result)
+        runner.stub(:read_output_file_contents).with(output_file_name).and_return(expected_result)
         result = run_robot
         result.should == expected_result
       end

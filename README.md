@@ -26,23 +26,33 @@ Or create an instance with a specific Vim
 ### Running commands
 Commands are passed in as a string with one command per line.
 
+The input file can be specified as a path to an existing input file, or as a string which RobotVim will turn into an short lived file backed buffer.
+
     commands = <<-COMMANDS
       RunSomeCoolCommand
       SomeOtherCoolCommand
     COMMANDS
 
+
     buffer_text = robot.run(:input_file => "some/file.txt", :commands => commands)
+
+    input = <<-CONTENT
+      This text will be used
+      as the contents of my input file
+    CONTENT
+
+    buffer_text = robot.run(:input_file => input, :commands => commands)
 
 
 ### Making Assertions
 Use your preferred Ruby testing library to make assertions about the buffer text string returned by RobotVim::Runner#run
 
-See spec/integration\_spec.rb for an example of sorting a file and making an assertion.
+spec/integration\_spec.rb contains examples of asserting with Rspec
 
 ## TODO
 - automatically save buffer to an output file after running the last command(done)
 - automatically close Vim after running the last command(done)
-- take a string for input and write out a temporary file that Vim will run against
+- take a string for input and write out a temporary file that Vim will run against(done)
 - figure out if there is a way to specify a .vimrc file without disabling the normal Vim initialization process
 
 ## Author
