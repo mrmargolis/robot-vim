@@ -35,6 +35,11 @@ Commands are passed in as a string with one command per line.
 
 See spec/integration\_spec.rb for an example of sorting a file and saving the output.
 
+### Making Assertions
+For now the recommended approach is to include a
+    :w somefile
+in your command list and then read "somefile" using File.read(somefile).  You can then make assertions using whichever testing lib you prefer.  In the future I plan to automate this process and have the run method return the buffer text and other useful data you might want to assert against.
+
 
 ## TODO
 - automatically save buffer to an output file after running the last command
