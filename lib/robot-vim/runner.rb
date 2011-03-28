@@ -1,13 +1,19 @@
 module RobotVim
   class Runner
     DEFAULT_VIM_BINARY = "vim"
+    DEFAULT_VIMRC = File.join(File.expand_path("~"), ".vimrc")
 
     def initialize(args={})
       @vim_binary = args[:vim]
+      @vimrc = args[:vimrc]
     end
 
     def vim_binary
       @vim_binary || DEFAULT_VIM_BINARY
+    end
+
+    def vimrc
+      @vimrc || DEFAULT_VIMRC
     end
 
     def run(args={})
@@ -28,7 +34,7 @@ module RobotVim
     private
 
     def invoke_vim(script_file_path, input_file)
-      Kernel.send(:`, "#{self.vim_binary} -N -n -s #{script_file_path} #{input_file}")
+      Kernel.send(:`, "#{self.vim_binary} -N -n -u #{self.vimrc} -s #{script_file_path} #{input_file}")
     end
 
     def output_write_command(output_file_name)

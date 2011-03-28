@@ -1,0 +1,3 @@
+function! ConvertNotToGross(...)
+  :s/not/gross
+endfunction

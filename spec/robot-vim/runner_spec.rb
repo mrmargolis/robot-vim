@@ -16,6 +16,19 @@ describe RobotVim::Runner do
     end
   end
 
+  describe "specifying which vimrc to use" do
+    it "uses the vimrc passed in during initialization if provided" do
+      vimrc = "/testing/vimrc"
+      runner = RobotVim::Runner.new(:vimrc => vimrc)
+      runner.vimrc.should == vimrc
+    end
+
+    it "defaults to vimrc in user's path" do
+      runner = RobotVim::Runner.new()
+      runner.vimrc.should == RobotVim::Runner::DEFAULT_VIMRC
+    end
+  end
+
   describe "running commands in vim" do
     let(:vim_path){"/usr/local/bin/vim"}
     let(:runner){RobotVim::Runner.new(:vim => vim_path)}
@@ -56,6 +69,13 @@ describe RobotVim::Runner do
       script_file_path = "path/to/script/file"
       RobotVim::ScriptFile.stub(:open).and_yield(script_file_path)
       Kernel.should_receive(:`).with(/-s #{script_file_path}/)
+      run_robot
+    end
+
+    it "invokes vim with a vimrc" do
+      vimrc = "some/vimrc"
+      runner.stub(:vimrc).and_return(vimrc)
+      Kernel.should_receive(:`).with(/-u #{vimrc}/)
       run_robot
     end
 
