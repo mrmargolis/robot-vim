@@ -28,7 +28,7 @@ module RobotVim
     private
 
     def invoke_vim(script_file_path, input_file)
-      Kernel.send(:`, "#{self.vim_binary} -n -s #{script_file_path} #{input_file}")
+      Kernel.send(:`, "#{self.vim_binary} -N -n -s #{script_file_path} #{input_file}")
     end
 
     def output_write_command(output_file_name)

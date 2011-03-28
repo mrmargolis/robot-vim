@@ -47,6 +47,11 @@ describe RobotVim::Runner do
       run_robot
     end
 
+    it "runs vim in No-compatible mode so vim properly loads vimrcs and plugins" do
+      Kernel.should_receive(:`).with(/-N/)
+      run_robot
+    end
+
     it "invokes vim with a script file" do
       script_file_path = "path/to/script/file"
       RobotVim::ScriptFile.stub(:open).and_yield(script_file_path)
