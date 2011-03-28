@@ -17,11 +17,14 @@ RobotVim is developed with Vim 7.3, Ruby 1.9.2, and bundler.
 ## Example Usage
 
 ### Initialization
-Create an instance that will use your user's default Vim
+Create an instance that will use your user's default Vim and vimrc
     robot = RobotVim::Runner.new()
 
-Or create an instance with a specific Vim
+Create an instance with a specific Vim
     robot = RobotVim::Runner.new(:vim => "/bin/vim")
+
+Create an instance with a specific vimrc
+    robot = RobotVim::Runner.new(:vimrc => "something/vimrc")
 
 ### Running commands
 Commands are passed in as a string with one command per line.
@@ -53,7 +56,7 @@ spec/integration\_spec.rb contains examples of asserting with Rspec
 - automatically save buffer to an output file after running the last command(done)
 - automatically close Vim after running the last command(done)
 - take a string for input and write out a temporary file that Vim will run against(done)
-- figure out if there is a way to specify a .vimrc file without disabling the normal Vim initialization process
+- figure out if there is a way to specify a .vimrc file without disabling the normal Vim initialization process(done)
 
 ## Author
 RobotVim is developed by Matt Margolis | mrmargolis | matt@mattmargolis.net
