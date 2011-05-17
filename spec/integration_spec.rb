@@ -46,4 +46,21 @@ describe "Automating Vim with RobotVim" do
     end
   end
 
+  describe "running commands that take user input" do
+    it "can run a little function defined in a vimrc" do
+      input = "Beer bread is delicious.  Beard bread is not"
+
+      commands = <<-COMMANDS
+        :call AskMeSomething()
+yes please
+      COMMANDS
+
+      vimrc = File.join(File.dirname(__FILE__), "fixtures", "vimrc_with_user_input")
+      runner = RobotVim::Runner.new(:vimrc => vimrc)
+      result = runner.run(:commands => commands, :input_file => input)
+      result.should == "yes please" + "\n"
+    end
+
+  end
+
 end

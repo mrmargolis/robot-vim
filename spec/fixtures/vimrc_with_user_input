@@ -1,0 +1,4 @@
+function! AskMeSomething()
+  let response = input('What do you want?: ')
+  call setline('.', response)
+endfunction
