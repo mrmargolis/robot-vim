@@ -47,8 +47,8 @@ describe "Automating Vim with RobotVim" do
   end
 
   describe "running commands that take user input" do
-    it "can run a little function defined in a vimrc" do
-      input = "Beer bread is delicious.  Beard bread is not"
+    it "can run fake user input" do
+      input = "I am going to be replaced by the user's input"
 
       commands = <<-COMMANDS
         :call AskMeSomething()
