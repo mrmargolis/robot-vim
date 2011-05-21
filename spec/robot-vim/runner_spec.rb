@@ -51,7 +51,12 @@ describe RobotVim::Runner do
     end
 
     it "runs against the requested input file" do
-      Kernel.should_receive(:`).with(/#{input_file}$/)
+      Kernel.should_receive(:`).with(/#{input_file}/)
+      run_robot
+    end
+
+    it "redirects stderr so we don't see Vim warnings about not outputting to a terminal" do
+      Kernel.should_receive(:`).with(/2>\/dev\/null/)
       run_robot
     end
 
