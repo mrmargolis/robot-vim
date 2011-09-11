@@ -26,7 +26,7 @@ module RobotVim
         end
       end
 
-      return read_output_file_contents(output_file_name)
+      return RobotVim::VimResponse.new(read_output_file_contents(output_file_name))
     ensure
       File.delete(output_file_name) if File.exists?(output_file_name)
     end

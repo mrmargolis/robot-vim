@@ -13,7 +13,7 @@ describe "Automating Vim with RobotVim" do
         COMMANDS
 
         result = runner.run(:commands => commands, :input_file => input_path)
-        result.should == unsorted_text.split("\n").sort.join("\n") + "\n"
+        result.body.should == unsorted_text.split("\n").sort.join("\n")
       end
     end
 
@@ -26,7 +26,7 @@ describe "Automating Vim with RobotVim" do
         COMMANDS
 
         result = runner.run(:commands => commands, :input_file => text_to_uppercase)
-        result.should == text_to_uppercase.upcase + "\n"
+        result.body.should == text_to_uppercase.upcase
       end
     end
   end
@@ -42,7 +42,7 @@ describe "Automating Vim with RobotVim" do
       vimrc = File.join(File.dirname(__FILE__), "fixtures", "vimrc_with_not_to_gross")
       runner = RobotVim::Runner.new(:vimrc => vimrc)
       result = runner.run(:commands => commands, :input_file => input)
-      result.should == input.sub("not", "gross") + "\n"
+      result.body.should == input.sub("not", "gross")
     end
   end
 
@@ -58,9 +58,8 @@ yes please
       vimrc = File.join(File.dirname(__FILE__), "fixtures", "vimrc_with_user_input")
       runner = RobotVim::Runner.new(:vimrc => vimrc)
       result = runner.run(:commands => commands, :input_file => input)
-      result.should == "yes please" + "\n"
+      result.body.should == "yes please"
     end
-
   end
 
 end
