@@ -18,7 +18,7 @@ module RobotVim
 
     def run(args={})
       output_file_name = RobotVim::FileNameGenerator.generate
-      commands = args[:commands] + output_write_command(output_file_name) + vim_close_commands
+      commands = RobotVim::CommandGenerator.generate(args[:commands], output_file_name)
 
       InputFile.path_for(args[:input_file]) do |input_file_path|
         ScriptFile.open(commands) do |script_file_path|
@@ -35,14 +35,6 @@ module RobotVim
 
     def invoke_vim(script_file_path, input_file)
       Kernel.send(:`, "#{self.vim_binary} -N -n -u #{self.vimrc} -s #{script_file_path} #{input_file} 2>/dev/null")
-    end
-
-    def output_write_command(output_file_name)
-      ":w #{output_file_name}"
-    end
-
-    def vim_close_commands
-      "\n:%bd!\n:q!\n"
     end
 
     def read_output_file_contents(output_file_name)

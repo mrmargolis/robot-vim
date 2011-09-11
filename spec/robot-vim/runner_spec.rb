@@ -84,8 +84,10 @@ describe RobotVim::Runner do
       run_robot
     end
 
-    it "adds a write command to the user supplied commands" do
-      RobotVim::ScriptFile.should_receive(:open).with(/\n\:w/)
+    it "generates commands for the script file based on user input" do
+      generated_commands = stub('generated commands')
+      RobotVim::CommandGenerator.stub!(:generate).with(commands, anything()).and_return(generated_commands)
+      RobotVim::ScriptFile.should_receive(:open).with(generated_commands)
       run_robot
     end
 
@@ -97,11 +99,6 @@ describe RobotVim::Runner do
       run_robot
       run_robot
       files[0].should_not == files[1]
-    end
-
-    it "adds vim closing commands to the user supplied commands" do
-      RobotVim::ScriptFile.should_receive(:open).with(/:%bd!\n:q!/)
-      run_robot
     end
 
     describe "output file management" do
