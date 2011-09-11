@@ -42,14 +42,24 @@ The input file can be specified as a path to an existing input file, or as a str
     COMMANDS
 
 
-    buffer_text = robot.run(:input_file => "some/file.txt", :commands => commands)
+    vim_response = robot.run(:input_file => "some/file.txt", :commands => commands)
+    buffer_text = vim_response.body
 
     input = <<-CONTENT
       This text will be used
       as the contents of my input file
     CONTENT
 
-    buffer_text = robot.run(:input_file => input, :commands => commands)
+    vim_response = robot.run(:input_file => input, :commands => commands)
+    buffer_text = vim_response.body
+
+### VimResponse
+
+The return value of RobotVim::Runner#run is a RobotVim::VimResponse object with the following fields
+
+- body: The contents of the last buffer that was active when your commands completed
+- line\_number: The line number the cursor was on when your commands completed
+- column\_number: The column number the cursor was on when your commands completed
 
 
 ### Making Assertions
@@ -58,4 +68,4 @@ Use your preferred Ruby testing library to make assertions about the buffer text
 Take a look at spec/integration\_spec.rb for examples of asserting with Rspec
 
 ## Author
-RobotVim is developed by Matt Margolis | mrmargolis | matt@mattmargolis.net
+RobotVim is developed by Matt Margolis | @mrmargolis | matt@mattmargolis.net
