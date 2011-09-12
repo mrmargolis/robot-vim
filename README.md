@@ -37,13 +37,15 @@ Commands are passed in as a string with one command per line.
 The input file can be specified as a path to an existing input file, or as a string which RobotVim will turn into an short lived file backed buffer.
 
     commands = <<-COMMANDS
-      RunSomeCoolCommand
-      SomeOtherCoolCommand
+      :s/old/new
+      :normal! gg
+      :call setline('.', "RobotVim")
+      :call MyAwesomePluginFunction
     COMMANDS
 
 
     vim_response = robot.run(:input_file => "some/file.txt", :commands => commands)
-    buffer_text = vim_response.body
+
 
     input = <<-CONTENT
       This text will be used
@@ -55,7 +57,7 @@ The input file can be specified as a path to an existing input file, or as a str
 
 ### VimResponse
 
-The return value of RobotVim::Runner#run is a RobotVim::VimResponse object with the following fields
+The return value of RobotVim::Runner#run is a RobotVim::VimResponse instance with the following fields
 
 - body: The contents of the last buffer that was active when your commands completed
 - line\_number: The line number the cursor was on when your commands completed
