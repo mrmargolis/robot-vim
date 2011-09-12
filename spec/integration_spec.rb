@@ -62,4 +62,24 @@ yes please
     end
   end
 
+  describe "verifying location of cursor" do
+    it "detects the correct line and column numbers" do
+      input = "Here is some text\n" +
+              "and more on a different line\n" +
+              "behold, the lines just keep going\n" + 
+              "really?"
+
+      commands = <<-COMMANDS
+        :normal! gg
+        :normal! jj
+        :normal! 0llll
+      COMMANDS
+
+      runner = RobotVim::Runner.new()
+      result = runner.run(:commands => commands, :input_file => input)
+      puts result.body
+      result.line_number.should == 3
+      result.column_number.should == 5
+    end
+  end
 end
