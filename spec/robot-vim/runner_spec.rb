@@ -108,16 +108,16 @@ describe RobotVim::Runner do
         RobotVim::FileNameGenerator.stub(:generate).and_return(output_file_name)
       end
 
-      it "returns a VimResponse that is initialized with the output file contents" do
-        expected_result = "awesome buffer\n1"
-        runner.stub(:read_output_file_contents).with(output_file_name).and_return(expected_result)
-        response = run_robot
-        response.should be_kind_of(RobotVim::VimResponse)
-      end
-
       it "deletes the output file" do
         run_robot
         File.exists?(output_file_name).should be_false
+      end
+    end
+
+    describe "return value" do
+      it "returns a VimResponse that is initialized with the output file contents" do
+        response = run_robot
+        response.should be_kind_of(RobotVim::VimResponse)
       end
     end
   end
