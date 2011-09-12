@@ -63,6 +63,7 @@ The return value of RobotVim::Runner#run is a RobotVim::VimResponse instance wit
 - line\_number: The line number the cursor was on when your commands completed
 - column\_number: The column number the cursor was on when your commands completed
 
+**Please submit pull requests or issues if there are additional values that you want to be able to assert against**
 
 ### Making Assertions
 Use your preferred Ruby testing library to make assertions about the buffer text string returned by RobotVim::Runner#run
