@@ -66,7 +66,7 @@ The return value of RobotVim::Runner#run is a RobotVim::VimResponse instance wit
 **Please submit pull requests or issues if there are additional values that you want to be able to assert against**
 
 ### Making Assertions
-Use your preferred Ruby testing library to make assertions about the buffer text string returned by RobotVim::Runner#run
+Use your preferred Ruby testing library to make assertions about the VimResponse returned by RobotVim::Runner#run
 
 Take a look at spec/integration\_spec.rb for examples of asserting with Rspec
 
