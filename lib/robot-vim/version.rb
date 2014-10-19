@@ -1,5 +1,3 @@
-module Robot
-  module Vim
-    VERSION = "2.0.1"
-  end
+module RobotVim
+  VERSION = "2.0.1"
 end
