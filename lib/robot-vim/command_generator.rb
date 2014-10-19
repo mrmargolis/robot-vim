@@ -20,7 +20,7 @@ module RobotVim
     end
 
     def self.vim_close_commands
-      "\n:%bd!\n:q!\n"
+      ":%bd!\n:q!\n"
     end
   end
 end
