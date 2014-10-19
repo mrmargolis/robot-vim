@@ -66,7 +66,7 @@ yes please
     it "detects the correct line and column numbers" do
       input = "Here is some text\n" +
               "and more on a different line\n" +
-              "behold, the lines just keep going\n" + 
+              "behold, the lines just keep going\n" +
               "really?"
 
       commands = <<-COMMANDS

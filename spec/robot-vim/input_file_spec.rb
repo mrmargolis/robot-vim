@@ -18,7 +18,7 @@ describe RobotVim::InputFile do
           Hi there.
           This will serve as our input file.
         CONTENTS
-      end 
+      end
 
       it "creates a new file with those contents" do
         RobotVim::InputFile.path_for(file_contents) do |path|
