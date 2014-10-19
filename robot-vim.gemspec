@@ -3,7 +3,7 @@ require File.expand_path("../lib/robot-vim/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "robot-vim"
-  s.version     = Robot::Vim::VERSION
+  s.version     = RobotVim::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Matt Margolis"]
   s.email       = ["matt@mattmargolis.net"]
